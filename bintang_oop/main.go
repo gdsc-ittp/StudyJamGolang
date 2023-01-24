@@ -28,6 +28,12 @@ type TicketPrice struct {
 type SeatAmount struct {
 	seatAmount string
 }
+type Diskon struct {
+	diskon string
+}
+type Total struct {
+	total string
+}
 
 func (u Username) processBooking() string {
 	return "Pesan tiket film untuk user " + u.username
@@ -50,6 +56,12 @@ func (t TicketPrice) processBooking() string {
 func (s SeatAmount) processBooking() string {
 	return "Jumlah Kursi: " + s.seatAmount
 }
+func (d Diskon) processBooking() string {
+	return "Diskon: " + d.diskon
+}
+func (t Total) processBooking() string {
+	return "Total: " + t.total
+}
 
 func makeBookingRequest(b BookingTicketMovie) {
 	fmt.Println(b.processBooking())
@@ -62,6 +74,8 @@ func main() {
 	seatType := SeatType{seatType: "Regular"}
 	ticketPrice := TicketPrice{ticketPrice: "IDR 40K"}
 	seatAmount := SeatAmount{seatAmount: "4"}
+	diskon := Diskon{diskon: "IDR 20K"}
+	total := Total{total: "IDR 140K"}
 
 	fmt.Println("================================================================")
 	makeBookingRequest(username)
@@ -72,5 +86,8 @@ func main() {
 	makeBookingRequest(seatType)
 	makeBookingRequest(ticketPrice)
 	makeBookingRequest(seatAmount)
+	fmt.Println("================================================================")
+	makeBookingRequest(diskon)
+	makeBookingRequest(total)
 	fmt.Println("================================================================")
 }
