@@ -34,6 +34,9 @@ type Diskon struct {
 type Total struct {
 	total string
 }
+type Payment struct {
+	payment string
+}
 
 func (u Username) processBooking() string {
 	return "Pesan tiket film untuk user " + u.username
@@ -62,6 +65,9 @@ func (d Diskon) processBooking() string {
 func (t Total) processBooking() string {
 	return "Total: " + t.total
 }
+func (p Payment) processBooking() string {
+	return "Jenis Pembayaran: " + p.payment
+}
 
 func makeBookingRequest(b BookingTicketMovie) {
 	fmt.Println(b.processBooking())
@@ -76,6 +82,7 @@ func main() {
 	seatAmount := SeatAmount{seatAmount: "4"}
 	diskon := Diskon{diskon: "IDR 20K"}
 	total := Total{total: "IDR 140K"}
+	payment := Payment{payment: "E-Wallet: DANA"}
 
 	fmt.Println("================================================================")
 	makeBookingRequest(username)
@@ -89,5 +96,7 @@ func main() {
 	fmt.Println("================================================================")
 	makeBookingRequest(diskon)
 	makeBookingRequest(total)
+	fmt.Println("================================================================")
+	makeBookingRequest(payment)
 	fmt.Println("================================================================")
 }
