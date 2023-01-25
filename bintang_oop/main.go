@@ -61,7 +61,7 @@ func main() {
 		watchDate:       "2023/04/28",
 		seatType:        "Reguler",
 		ticketPrice:     40000,
-		seatAmount:      4,
+		seatAmount:      6,
 	}
 	payment := Payment{payment: "E-Wallet: DANA"}
 
@@ -76,14 +76,20 @@ func main() {
 	fmt.Println("Harga Tiket	: Rp", order.ticketPrice, ",-")
 
 	if order.seatAmount <= 0 {
-		fmt.Println("Jumlah Kursi	:", order.SeatAmount(), "(Silahkan pilih minimal 1 kursi!)")
+		fmt.Println("Jumlah Kursi	: Silahkan pilih minimal 1 kursi!")
 	} else {
 		fmt.Println("Jumlah Kursi	:", order.SeatAmount())
 	}
 
 	fmt.Println("================================================================")
 	fmt.Println("Diskon		: Rp", order.discount, ",-")
-	fmt.Println("Total Biaya	: Rp", order.TotalPrice(), ",-")
+
+	if order.seatAmount <= 0 {
+		fmt.Println("Total Biaya	: Rp 0 ,-")
+	} else {
+		fmt.Println("Total Biaya	: Rp", order.TotalPrice(), ",-")
+	}
+
 	fmt.Println("================================================================")
 	fmt.Println(payment.Payment(), user.NoTelp())
 	fmt.Println("================================================================")
