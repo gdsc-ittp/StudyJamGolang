@@ -4,99 +4,84 @@ package main
 
 import "fmt"
 
-type BookingTicketMovie interface {
-	processBooking() string
-}
-type Username struct {
+type User struct {
+	id       string
 	username string
+	email    string
+	noTelp   string
 }
-type Title struct {
-	movieTitle string
-}
-type Location struct {
+type Order struct {
+	id              string
+	movieTitle      string
 	bioskopLocation string
-}
-type Date struct {
-	watchDate string
-}
-type SeatType struct {
-	seatType string
-}
-type TicketPrice struct {
-	ticketPrice string
-}
-type SeatAmount struct {
-	seatAmount string
-}
-type Diskon struct {
-	diskon string
-}
-type Total struct {
-	total string
+	watchDate       string
+	seatType        string
+	ticketPrice     int
+	seatAmount      int
+	discount        int
 }
 type Payment struct {
 	payment string
 }
 
-func (u Username) processBooking() string {
-	return "Pesan tiket film untuk user " + u.username
+func (u User) User() string {
+	return "Pesan tiket film untuk user " + u.username + " dengan ID " + u.id
 }
-func (t Title) processBooking() string {
-	return "Judul Film: " + t.movieTitle
+func (u User) NoTelp() string {
+	return "(" + u.noTelp + ")"
 }
-func (l Location) processBooking() string {
-	return "Lokasi Bioskop: " + l.bioskopLocation
+func (o *Order) SeatAmount() int {
+	if o.seatAmount <= 0 {
+		o.discount = 0
+	}
+	return o.seatAmount
 }
-func (d Date) processBooking() string {
-	return "Tanggal Nonton: " + d.watchDate
+func (o Order) TotalPrice() int {
+	return (o.ticketPrice * o.seatAmount) - (o.discount * o.seatAmount)
 }
-func (s SeatType) processBooking() string {
-	return "Jenis Kursi: " + s.seatType
-}
-func (t TicketPrice) processBooking() string {
-	return "Harga Tiket: " + t.ticketPrice
-}
-func (s SeatAmount) processBooking() string {
-	return "Jumlah Kursi: " + s.seatAmount
-}
-func (d Diskon) processBooking() string {
-	return "Diskon: " + d.diskon
-}
-func (t Total) processBooking() string {
-	return "Total: " + t.total
-}
-func (p Payment) processBooking() string {
+func (p Payment) Payment() string {
 	return "Jenis Pembayaran: " + p.payment
 }
 
-func makeBookingRequest(b BookingTicketMovie) {
-	fmt.Println(b.processBooking())
-}
 func main() {
-	username := Username{username: "Bintang"}
-	title := Title{movieTitle: "Jhon Wick: Chapter 4"}
-	location := Location{bioskopLocation: "The Park Solobaru"}
-	date := Date{watchDate: "2023/04/28"}
-	seatType := SeatType{seatType: "Regular"}
-	ticketPrice := TicketPrice{ticketPrice: "IDR 40K"}
-	seatAmount := SeatAmount{seatAmount: "4"}
-	diskon := Diskon{diskon: "IDR 20K"}
-	total := Total{total: "IDR 140K"}
+	user := &User{
+		id:       "MX4D7TR26",
+		username: "Bintang",
+		email:    "example@gmail.com",
+		noTelp:   "0812-3456-7890",
+	}
+	order := &Order{
+		id:              "72164371881318",
+		movieTitle:      "Jhon Wick: Chapter 4",
+		bioskopLocation: "The Park Solobaru",
+		watchDate:       "2023/04/28",
+		seatType:        "Reguler",
+		ticketPrice:     40000,
+		seatAmount:      1,
+		discount:        5000,
+	}
 	payment := Payment{payment: "E-Wallet: DANA"}
 
 	fmt.Println("================================================================")
-	makeBookingRequest(username)
+	fmt.Println(user.User())
 	fmt.Println("================================================================")
-	makeBookingRequest(title)
-	makeBookingRequest(location)
-	makeBookingRequest(date)
-	makeBookingRequest(seatType)
-	makeBookingRequest(ticketPrice)
-	makeBookingRequest(seatAmount)
+	fmt.Println("ID Transaksi	: " + order.id)
+	fmt.Println("Judul Film	: " + order.movieTitle)
+	fmt.Println("Lokasi Bioskop	: " + order.bioskopLocation)
+	fmt.Println("Tanggal Nonton	: " + order.watchDate)
+	fmt.Println("Jenis Kursi	: " + order.seatType)
+	fmt.Println("Harga Tiket	: Rp", order.ticketPrice, ",-")
+
+	if order.seatAmount <= 0 {
+		fmt.Println("Jumlah Kursi	:", order.SeatAmount(), "(Silahkan pilih minimal 1 kursi!)")
+	} else {
+		fmt.Println("Jumlah Kursi	:", order.SeatAmount())
+	}
+
 	fmt.Println("================================================================")
-	makeBookingRequest(diskon)
-	makeBookingRequest(total)
+	fmt.Println("Diskon		: Rp", order.discount, ",-")
+	fmt.Println("Total Biaya	: Rp", order.TotalPrice(), ",-")
 	fmt.Println("================================================================")
-	makeBookingRequest(payment)
+	fmt.Println(payment.Payment(), user.NoTelp())
 	fmt.Println("================================================================")
 }
