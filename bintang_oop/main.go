@@ -1,5 +1,4 @@
-// Study Jam 3 Golang - Mini Project
-
+// Mini Project - Study Jam Golang (21 Jan 2023)
 package main
 
 import "fmt"
