@@ -31,7 +31,11 @@ func (u User) NoTelp() string {
 	return "(" + u.noTelp + ")"
 }
 func (o *Order) SeatAmount() int {
-	if o.seatAmount <= 0 {
+	if o.seatAmount >= 4 {
+		o.discount = 10000
+	} else if o.seatAmount >= 2 {
+		o.discount = 5000
+	} else {
 		o.discount = 0
 	}
 	return o.seatAmount
@@ -57,8 +61,7 @@ func main() {
 		watchDate:       "2023/04/28",
 		seatType:        "Reguler",
 		ticketPrice:     40000,
-		seatAmount:      1,
-		discount:        5000,
+		seatAmount:      4,
 	}
 	payment := Payment{payment: "E-Wallet: DANA"}
 
