@@ -28,9 +28,9 @@ func main() {
 	mhsVeteran.SetNim(12435455)
 	mhsVeteran.SetName("Muhammad Hanif")
 	mhsVeteran.SetProdi("Sistem Informasi")
-	mhsVeteran.SetSemester(8)
+	mhsVeteran.SetSemester(9)
 	mhsVeteran.SetIpk(3.20)
-	mhsVeteran.SetIsLulusSidang(true)
+	mhsVeteran.SetIsLulusSidang(false)
 
 	name := mhsVeteran.GetName()
 	nim := mhsVeteran.GetNim()
@@ -38,6 +38,8 @@ func main() {
 	semester := mhsVeteran.GetSemester()
 	ipk := mhsVeteran.GetIpk()
 	status := mhsVeteran.CekStatus()
+	maxSks := mhsVeteran.MaxSks()
+
 
 	println("===== Mahasiswa Yudisium =====\n")
 	
@@ -47,6 +49,11 @@ func main() {
 	println("Semester:", semester)
 	fmt.Printf("Ipk: %.2f\n", ipk)
 	println("status yudisium:", status)
+	if maxSks == 0 {
+		println("Kamu sudah lulus, tidak perlu krsan lagi..")
+	}else{
+		println("Max sks:", maxSks, "silahkan ambil matkul tugas akhir")
+	}
 	
 	println("\n===== ITTP 2023 =====")
 

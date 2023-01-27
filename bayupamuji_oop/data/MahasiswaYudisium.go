@@ -5,6 +5,14 @@ type MahasiswaYudisium struct {
 	Mahasiswa
 }
 
+func (mhs *MahasiswaYudisium) SetSemester(semester int) {
+	if semester < 7 {
+		mhs.semester = 7
+	} else {
+		mhs.semester = semester
+	}
+}
+
 func (mhs *MahasiswaYudisium) SetIsLulusSidang(isLulusSidang bool) {
 	mhs.isLulusSidang = isLulusSidang
 }
@@ -24,4 +32,14 @@ func (mhsYds MahasiswaYudisium) CekStatus() string {
 	}
 
 	return status
+}
+
+func (mhsYds MahasiswaYudisium) MaxSks() int {
+	var maxSks int
+	if mhsYds.isLulusSidang {
+		maxSks = 0
+	} else {
+		maxSks = 6
+	}
+	return maxSks
 }
